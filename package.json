@@ -1,0 +1,61 @@
+{
+	"name": "mcrice-cooker",
+	"version": "0.0.0",
+	"license": "MIT",
+	"bin": "cli.js",
+	"engines": {
+		"node": ">=8"
+	},
+	"scripts": {
+		"test": "xo && ava"
+	},
+	"files": [
+		"cli.js",
+		"ui.js"
+	],
+	"dependencies": {
+		"empty-dir": "^2.0.0",
+		"import-jsx": "^2.0.0",
+		"ink": "^2.3.0",
+		"ink-big-text": "^1.0.1",
+		"ink-gradient": "^1.0.0",
+		"prop-types": "^15.7.2",
+		"react": "^16.8.6"
+	},
+	"devDependencies": {
+		"@babel/preset-env": "^7.5.0",
+		"@babel/preset-react": "^7.0.0",
+		"@babel/register": "^7.4.4",
+		"ava": "^2.1.0",
+		"babel-eslint": "^10.0.2",
+		"chalk": "^2.4.2",
+		"eslint": "^5.16.0",
+		"eslint-config-airbnb": "^17.1.1",
+		"eslint-config-xo-react": "^0.20.0",
+		"eslint-plugin-import": "^2.18.0",
+		"eslint-plugin-jsx-a11y": "^6.2.3",
+		"eslint-plugin-react": "^7.14.2",
+		"eslint-plugin-react-hooks": "^1.6.1",
+		"ink-testing-library": "^1.0.2",
+		"xo": "^0.24.0"
+	},
+	"ava": {
+		"require": [
+			"@babel/register"
+		]
+	},
+	"babel": {
+		"presets": [
+			"@babel/preset-react",
+			[
+				"@babel/preset-env",
+				{
+					"target": "node"
+				}
+			]
+		]
+	},
+	"xo": {
+		"extends": "xo-react"
+	}
+}
