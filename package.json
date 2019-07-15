@@ -1,6 +1,6 @@
 {
-	"name": "mcrice-cooker",
-	"version": "0.0.0",
+	"name": "rice-cli",
+	"version": "3.0.0",
 	"license": "MIT",
 	"bin": "cli.js",
 	"engines": {
