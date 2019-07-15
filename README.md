@@ -1,2 +1,2 @@
-# cooker
+# rice-cli
 CLI Scaffolder
