@@ -2,7 +2,7 @@
 	"name": "rice-cli",
 	"version": "3.0.0",
 	"license": "MIT",
-	"bin": "cli.js",
+	"bin": {"rice": "./cli.js"},
 	"engines": {
 		"node": ">=8"
 	},
@@ -11,7 +11,7 @@
 	},
 	"files": [
 		"cli.js",
-		"ui.js"
+		"**/*.jsx"
 	],
 	"dependencies": {
 		"empty-dir": "^2.0.0",
