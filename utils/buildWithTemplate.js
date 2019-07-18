@@ -8,9 +8,9 @@ const shell = require('shelljs');
 
 module.exports = function buildWithTemplate(projectName) {
   shell.sed(
-    '-i', //
-    '%PROJECTNAME%',
-    projectName,
-    path.join(process.env.PWD, projectName, '**/*.{html,js,jsx,json}'),
+    '-i', // Make changes in-place
+    'react-boilerplate', // Placeholder Project Name
+    projectName, // Actual Project Name
+    path.join(process.env.PWD, projectName, '**/*.{html,js,jsx,json}'), // File Glob to go through every file
   );
 };
