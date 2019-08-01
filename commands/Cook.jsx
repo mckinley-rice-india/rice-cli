@@ -3,6 +3,7 @@ const PropTypes = require('prop-types');
 const importJsx = require('import-jsx');
 const { Box } = require('ink');
 const shell = require('shelljs');
+const path = require('path');
 
 const buildWithTemplate = require('../utils/buildWithTemplate');
 
@@ -21,7 +22,7 @@ function Cook({ projectName }) {
   ] = useState({ isSelected: false, selectedValue: null });
 
   const [isCloned, setIsCloned] = useState(false);
-  const [hasErrored, setHasErrored] = useState(false);
+  const [{ hasErrored, errorMessage }, setError] = useState({ hasErrored: false, errorMessage: '' });
   const [isBuilt, setIsBuilt] = useState(false);
 
   const handleSelect = ({ value }) => {
@@ -29,13 +30,17 @@ function Cook({ projectName }) {
     shell.exec(
       `git clone https://github.com/V1shvesh/react-web-template ${projectName}`,
       { silent: true },
-      (code) => {
+      (code, stdout, stderr) => {
         if (code === 0) {
           setIsCloned(true);
           buildWithTemplate(projectName);
           setIsBuilt(true);
+          shell.cd(path.join(process.env.PWD, projectName));
         } else {
-          setHasErrored(true);
+          setError({
+            hasErrored: true,
+            errorMessage: stderr,
+          });
         }
       },
     );
@@ -46,9 +51,10 @@ function Cook({ projectName }) {
       <React.Fragment>
         <Event
           isFulfilled={isCloned}
-          hasErrored={hasErrored}
+          hasErrored={!isCloned && hasErrored}
           activeText="Cloning"
           fulfilledText="Cloned"
+          errorMessage={errorMessage}
         />
         {isCloned && (
           <Event
