@@ -8,10 +8,18 @@ const path = require('path');
 
 const Help = importJsx('./commands/Help.jsx');
 const Cook = importJsx('./commands/Cook.jsx');
+const Update = importJsx('./commands/Update.jsx');
 
-const [command, ...args] = process.argv.slice(2);
+const Error = importJsx('./components/Error.jsx');
+
+const [cliCommand, ...args] = process.argv.slice(2);
 
 function cook(projectName) {
+  if (typeof projectName !== 'string' || !/^[a-z0-9-~][a-z0-9-._~]*$/.test(projectName)) {
+    render(React.createElement(Error, { errorMessage: 'Invalid Project Name', oneline: true }));
+    return;
+  }
+
   const projectPath = path.join(__dirname, `./${projectName}`);
 
   const isDirEmpty = emptyDir.sync(projectPath);
@@ -19,13 +27,12 @@ function cook(projectName) {
   if (!DirExists || isDirEmpty) {
     render(React.createElement(Cook, { projectName }));
   } else {
-    process.stdout.write('Directory Not Empty \n');
+    render(React.createElement(Error, { errorMessage: 'Directory Not Empty', oneline: true }));
   }
 }
 
-function add(moduleType, moduleName) {
-  process.stdout.write('\u001bc');
-  process.stdout.write(`${moduleType}, ${moduleName}\n`);
+function update(command, moduleType, moduleName) {
+  render(React.createElement(Update, { command, moduleType, moduleName }));
 }
 
 function help() {
@@ -33,13 +40,14 @@ function help() {
 }
 
 function mainFlow() {
-  switch (command) {
+  switch (cliCommand) {
     case 'cook':
       cook(...args);
       break;
 
     case 'add':
-      add(...args);
+    case 'delete':
+      update(cliCommand, ...args);
       break;
 
     default:
