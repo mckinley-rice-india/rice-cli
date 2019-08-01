@@ -13,7 +13,8 @@
 	},
 	"files": [
 		"cli.js",
-		"**/*.jsx"
+		"**/*.jsx",
+		"utils/*.js"
 	],
 	"dependencies": {
 		"cli-spinners": "^2.2.0",
