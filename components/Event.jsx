@@ -10,6 +10,7 @@ const Event = ({
   hasErrored,
   activeText,
   fulfilledText,
+  errorMessage,
 }) => {
   if (isFulfilled) {
     return (
@@ -23,8 +24,9 @@ const Event = ({
   if (hasErrored) {
     return (
       <Box>
-        <Color red>✗</Color>
-        {` Error while ${activeText}`}
+        <Color hex="#D8000C">✗</Color>
+        {` Error while ${activeText}:\n`}
+        <Color hex="#D8000C">{errorMessage}</Color>
       </Box>
     );
   }
@@ -42,6 +44,11 @@ Event.propTypes = {
   hasErrored: PropTypes.bool.isRequired,
   activeText: PropTypes.string.isRequired,
   fulfilledText: PropTypes.string.isRequired,
+  errorMessage: PropTypes.string,
+};
+
+Event.defaultProps = {
+  errorMessage: '',
 };
 
 module.exports = Event;
